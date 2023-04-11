@@ -1,1 +1,1 @@
-# EasyPizy
+# EasyPizy App
