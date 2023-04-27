@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.easypizy.data.data_source.local.converter.DateConverter
 import com.example.easypizy.data.data_source.local.dao.SmokeMemoDao
 import com.example.easypizy.data.data_source.local.entity.SmokeMemoEntity
 
 @Database(entities = [SmokeMemoEntity::class], version = 1, exportSchema = false)
+@TypeConverters(DateConverter::class)
 abstract class SmokeMemoDatabase : RoomDatabase() {
 
     abstract fun smokeMemoDao(): SmokeMemoDao
