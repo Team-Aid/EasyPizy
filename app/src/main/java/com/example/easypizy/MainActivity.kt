@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.easypizy.databinding.ActivityMainBinding
+import com.example.easypizy.presentation.view_model.Home
+import com.example.easypizy.presentation.view_model.Page
+import com.example.easypizy.presentation.view_model.Map
 import com.example.easypizy.presentation.Home
 import com.example.easypizy.presentation.Page
 import com.example.easypizy.presentation.Map
@@ -31,7 +34,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             true
+        }
+    }
         }    }
+
 
     private fun replaceFragment(fragment: Fragment){
 
@@ -39,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout,fragment)
         fragmentTransaction.commit()
+
     }
 }
 
