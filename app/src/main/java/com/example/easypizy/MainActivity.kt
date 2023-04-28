@@ -7,6 +7,9 @@ import com.example.easypizy.databinding.ActivityMainBinding
 import com.example.easypizy.presentation.view_model.Home
 import com.example.easypizy.presentation.view_model.Page
 import com.example.easypizy.presentation.view_model.Map
+import com.example.easypizy.presentation.Home
+import com.example.easypizy.presentation.Page
+import com.example.easypizy.presentation.Map
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +36,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+        }    }
+
 
     private fun replaceFragment(fragment: Fragment){
 
