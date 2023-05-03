@@ -38,46 +38,48 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
+                android:id="@+id/today"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:background="@drawable/today_yesterday_shape"
                 android:text="  오늘  "
-                android:layout_marginLeft="100dp"
                 android:textColor="#000000"
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:background="@drawable/today_yesterday_shape"
-                android:id="@+id/today"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/yesterday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:background="@drawable/today_yesterday_shape"
                 android:text="  어제  "
-                android:layout_marginLeft="100dp"
                 android:textColor="#000000"
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:background="@drawable/today_yesterday_shape"
-                android:id="@+id/yesterday"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/today_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
                 android:text="20"
-                android:layout_marginLeft="90dp"
                 android:textColor="#1634E5"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:id="@+id/today_num"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,19 +87,18 @@
                 android:text=" 개"
                 android:textColor="#000000"
                 android:textSize="24dp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
 
             <TextView
+                android:id="@+id/yesterday_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
                 android:text="12"
-                android:layout_marginLeft="90dp"
                 android:textColor="#1634E5"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:id="@+id/yesterday_num"/>
+                android:textStyle="bold" />
 
 
             <TextView
@@ -106,59 +107,63 @@
                 android:text=" 개"
                 android:textColor="#000000"
                 android:textSize="24dp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="70dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:text="어제에 비해 오늘 "
                 android:textColor="#000000"
                 android:textSize="16dp"
                 android:textStyle="bold"
 
                 />
+
             <TextView
+                android:id="@+id/plusOrMius"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:text=" +"
                 android:textColor="#AF2534"
                 android:textSize="20dp"
-                android:id="@+id/plusOrMius"
                 android:textStyle="bold"
 
                 />
 
             <TextView
+                android:id="@+id/number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:text="8 "
                 android:textColor="#AF2534"
                 android:textSize="20dp"
-                android:id="@+id/number"
                 android:textStyle="bold"
 
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:text=" 개를 피웠습니다"
                 android:textColor="#000000"
                 android:textSize="16dp"
-                android:layout_marginBottom="30dp"
                 android:textStyle="bold"
 
 
@@ -208,28 +213,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="90dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="170dp"
-                android:layout_marginTop="20dp"
-                android:drawableTop="@drawable/drawable_add"
                 android:background="@drawable/add_button"
                 android:contentDescription="추가버튼"
-                />
+                android:drawableTop="@drawable/drawable_add" />
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="70dp"
-                android:drawableTop="@drawable/drawable_option"
+                android:layout_marginLeft="40dp"
                 android:background="@drawable/option_button"
                 android:contentDescription="추가버튼"
-                />
+                android:drawableTop="@drawable/drawable_option" />
 
 
         </LinearLayout>
