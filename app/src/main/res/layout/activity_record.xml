@@ -4,16 +4,239 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordActivity">
+    android:background="#d2d2d9"
+    tools:context=".presentation.RecordActivity">
+
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/memo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="흡연기록"
+        android:layout_centerHorizontal="true"
+        android:text="  Memo  "
+        android:textColor="#000000"
+        android:textSize="40dp"
+        android:background="@drawable/memo_shape"
+        android:textStyle="bold|italic"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/memo"
+        android:columnCount="1"
+        android:orientation="horizontal"
+        android:layout_marginTop="90dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  오늘  "
+                android:layout_marginLeft="100dp"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:background="@drawable/today_yesterday_shape"
+                android:id="@+id/today"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  어제  "
+                android:layout_marginLeft="100dp"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:background="@drawable/today_yesterday_shape"
+                android:id="@+id/yesterday"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:layout_marginLeft="90dp"
+                android:textColor="#1634E5"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:id="@+id/today_num"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 개"
+                android:textColor="#000000"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:layout_marginLeft="90dp"
+                android:textColor="#1634E5"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:id="@+id/yesterday_num"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 개"
+                android:textColor="#000000"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="70dp"
+                android:text="어제에 비해 오늘 "
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text=" +"
+                android:textColor="#AF2534"
+                android:textSize="20dp"
+                android:id="@+id/plusOrMius"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="8 "
+                android:textColor="#AF2534"
+                android:textSize="20dp"
+                android:id="@+id/number"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text=" 개를 피웠습니다"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:layout_marginBottom="30dp"
+                android:textStyle="bold"
+
+
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="  일별 차트  "
+                android:textColor="#000000"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                android:background="@drawable/today_yesterday_shape"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <!--이 영역에 그래프 넣기 -->
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_marginTop="20dp"
+                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:id="@+id/chart"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="20dp"
+                android:drawableTop="@drawable/drawable_add"
+                android:background="@drawable/add_button"
+                android:contentDescription="추가버튼"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="70dp"
+                android:drawableTop="@drawable/drawable_option"
+                android:background="@drawable/option_button"
+                android:contentDescription="추가버튼"
+                />
+
+
+        </LinearLayout>
+
+    </GridLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

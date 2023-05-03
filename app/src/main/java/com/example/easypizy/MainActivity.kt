@@ -11,6 +11,7 @@ import com.example.easypizy.presentation.Map
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
+
+
             when(it.itemId){
                 R.id.home-> replaceFragment(Home())
                 R.id.map-> replaceFragment(Map())
@@ -32,7 +35,12 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+
     }
+
+
+
 
     private fun replaceFragment(fragment: Fragment){
 

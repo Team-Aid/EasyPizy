@@ -11,6 +11,7 @@ import com.example.easypizy.PlaceActivity
 import com.example.easypizy.R
 import com.example.easypizy.RecordActivity
 
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -34,10 +35,12 @@ class Home : Fragment() {
         }
     }
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // 프래그먼트를 layout Inflate
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
 
         // btn_place 버튼에 onClickListener 등록
         view.findViewById<Button>(R.id.btn_place).setOnClickListener {
@@ -50,6 +53,8 @@ class Home : Fragment() {
             val intent = Intent(activity, RecordActivity::class.java)
             startActivity(intent)
         }
+
+
         return view
     }
 
@@ -63,7 +68,10 @@ class Home : Fragment() {
          * @return A new instance of fragment Home.
          */
         // TODO: Rename and change types and number of parameters
-        @JvmStatic fun newInstance(param1: String, param2: String) =
+
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+
             Home().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
