@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d2d2d9"
+    tools:context=".presentation.Home">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="Menu"
+        android:textSize="40dp"
+        android:textStyle="bold|italic"
+        android:textColor="#000000"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/menu"
+        android:layout_marginTop="-2dp"
+        android:columnCount="1"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_community"
+                android:text="community"
+                android:textSize="18dp"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:drawableTop="@drawable/drawable_resize"
+                android:textColor="@color/black"
+                android:background="@drawable/home_button"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_place"
+                android:text="place"
+                android:textSize="18dp"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:drawableTop="@drawable/drawable_resize_place"
+                android:textColor="@color/black"
+                android:background="@drawable/home_button"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_star"
+                android:text="bookmark"
+                android:textSize="18dp"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="60dp"
+                android:drawableTop="@drawable/drawable_resize_bookmark"
+                android:textColor="@color/black"
+                android:background="@drawable/home_button"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_record"
+                android:text="record"
+                android:textSize="18dp"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="60dp"
+                android:drawableTop="@drawable/drawable_resize_record"
+                android:textColor="@color/black"
+                android:background="@drawable/home_button"/>
+        </LinearLayout>
+    </GridLayout>
+
+
+</RelativeLayout>
