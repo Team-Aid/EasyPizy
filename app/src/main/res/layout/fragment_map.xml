@@ -6,6 +6,7 @@
     android:background="#d2d2d9"
     tools:context=".presentation.Map">
 
+
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"

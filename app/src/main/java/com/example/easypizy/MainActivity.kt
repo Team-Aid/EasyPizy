@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         binding.bottomNavigationView.setOnItemSelectedListener {
+
 
             when(it.itemId){
                 R.id.home-> replaceFragment(Home())
@@ -34,7 +36,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+
     }
+
 
 
 
@@ -47,3 +51,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+

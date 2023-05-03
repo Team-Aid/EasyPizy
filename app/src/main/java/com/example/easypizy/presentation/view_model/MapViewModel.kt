@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 // class MainActivity : AppCompatActivity() {
 //    private val mapViewModel: MapViewModel by viewModels {
-//        MapViewModelFactory((application as SmokePlaceApplication).repository)
+//        MapViewModelFactory((application as SmokePlaceApplication).smokePlaceRepository)
 //    }
 //
 //    override fun onCreate(savedInstanceState: Bundle?) {
