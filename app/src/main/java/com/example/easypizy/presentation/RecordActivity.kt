@@ -20,6 +20,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,13 +45,10 @@ class RecordActivity : AppCompatActivity() {
         val barData = BarData()
 
 
-        chart.add(BarEntry(1f, 1f))
-        chart.add(BarEntry(2f, 4f))
-        chart.add(BarEntry(3f, 3f))
-        chart.add(BarEntry(4f, 5f))
-        chart.add(BarEntry(5f, 2f))
-        chart.add(BarEntry(6f, 7f))
-        chart.add(BarEntry(7f, 8f))
+        val cigaretteCounts = memoViewModel.getCigaretteCountPerDay(LocalDate.now())
+        for (i in 0..6){
+            chart.add(BarEntry(i.toFloat(), cigaretteCounts[i].toFloat()))
+        }
 
 
         val barDataSet =
@@ -75,13 +73,14 @@ class RecordActivity : AppCompatActivity() {
         leftAxis.setDrawAxisLine(false)
         leftAxis.setDrawLabels(false)
         leftAxis.setDrawGridLines(false)
+        leftAxis.axisMinimum = 0f
+        leftAxis.axisMaximum = 25f
 
         val rightAxis: YAxis = barChart!!.axisRight
         // 우측 선 설정 (default = true)
         rightAxis.setDrawAxisLine(false)
         rightAxis.setDrawLabels(false)
         rightAxis.setDrawGridLines(false)
-
 
         val description = Description()
         description.isEnabled = false
@@ -93,6 +92,13 @@ class RecordActivity : AppCompatActivity() {
         xAxis.setDrawAxisLine(false)
         // 격자선 설정 (default = true)
         xAxis.setDrawGridLines(false)
+        val labels = kotlin.collections.ArrayList<String>()
+        val today = LocalDate.now()
+        for(i in 6 downTo 0){
+            val thatDay = today.minusDays(i.toLong())
+            labels.add("${thatDay.month.value}/${thatDay.dayOfMonth}")
+        }
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
 
         memoViewModel.smokeMemos.observe(this){
             val todayCiga = memoViewModel.getCigaretteCount(LocalDate.now())
@@ -104,6 +110,20 @@ class RecordActivity : AppCompatActivity() {
                 else -> ""
             }
             findViewById<TextView>(com.example.easypizy.R.id.number).text = "${sign}${todayCiga-yesterdayCiga}"
+
+            val cigaretteCounts2 = memoViewModel.getCigaretteCountPerDay(LocalDate.now())
+            chart.clear()
+//            var biggest = 2
+            for (i in 0..6){
+                chart.add(BarEntry(i.toFloat(), cigaretteCounts2[i].toFloat()))
+//                if(biggest < cigaretteCounts2[i]){
+//                    biggest = cigaretteCounts2[i]
+//                }
+            }
+
+//            Log.d("asdd", biggest.toString())
+//            leftAxis.axisMaximum = biggest.toFloat()
+            barChart!!.invalidate()
         }
 
         findViewById<Button>(com.example.easypizy.R.id.plusCigaButton).setOnClickListener {
