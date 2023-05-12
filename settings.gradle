@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://naver.jfrog.io/artifactory/maven/'
+        } //네이버 지도 api를 사용하기위한 수정
+    }
+
+}
+
+rootProject.name = "capston4"
+include ':app'
