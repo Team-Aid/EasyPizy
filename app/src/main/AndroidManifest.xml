@@ -10,11 +10,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.eazypizy"
-
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity android:name="com.example.easypizy.presentation.CalendarActivity" />
 
         <service
             android:name=".MainActivity"
@@ -29,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.example.easypizy.presentation.PlaceActivity" />
         <activity android:name="com.example.easypizy.presentation.RecordActivity" />
 
