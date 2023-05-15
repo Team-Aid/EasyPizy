@@ -10,17 +10,17 @@ data class SmokeArea(
     @SerializedName("경도")
     val latitude: Double,
     @SerializedName("서울특별시 설치 위치")
-    val areaName: String,
+    val areaName: String?,
     @SerializedName("설치 주체")
-    val a: String,
+    val a: String?,
     @SerializedName("시설 구분")
-    val inout: String,
+    val inout: String?,
     @SerializedName("시설형태")
-    val category: String,
+    val category: String?,
     @SerializedName("위도")
     val longitude: Double,
     @SerializedName("자치구명")
-    val b: String
+    val b: String?
 ) : Parcelable
 
 

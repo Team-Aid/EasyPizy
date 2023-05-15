@@ -1,6 +1,7 @@
 package com.example.capston4
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
@@ -8,8 +9,10 @@ import androidx.fragment.app.FragmentActivity
 import com.example.capston4.databinding.NaverFragment2Binding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.CircleOverlay
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +34,7 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
 
             val intent = Intent(this, NaverFragment::class.java)
             startActivity(intent)
-            
+
         }
 
 
@@ -44,44 +47,6 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
 
         mapFragment.getMapAsync(this)
     }
-    private fun getNoSmokeListAPI() {
-        val retrofit2: Retrofit = Retrofit.Builder()
-            .baseUrl("https://run.mocky.io")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        retrofit2.create(NoSmokeApi::class.java).also {
-            it.getNoSmoke()
-                .enqueue(object : Callback<NoSmokeDto> {
-                    override fun onResponse(
-                        call: Call<NoSmokeDto>,
-                        response: Response<NoSmokeDto>
-                    ) {
-                        if(!response.isSuccessful) {
-                            return
-                        }
-                        response.body()?.let { dto ->
-
-                            updateMarker2(dto.Data)
-
-                        }
-                    }
-
-                    override fun onFailure(call: Call<NoSmokeDto>, t: Throwable) {
-
-                    }
-                })
-        }
-    }
-
-    private fun updateMarker2(nosmokes: List<NoSmokeArea>){
-        nosmokes.forEach {
-            nosmoke -> val marker = Marker()
-            marker.position = LatLng(nosmoke.longitude, nosmoke.latitude)
-            marker.map = naverMap
-
-        }
-    }
 
 
     override fun onMapReady(map: NaverMap) {
@@ -91,6 +56,8 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
         naverMap.maxZoom = 18.0
         naverMap.minZoom = 10.0
 
+        val cameraUpdate = CameraUpdate.scrollTo(LatLng(37.5833,127.0096))
+        naverMap.moveCamera(cameraUpdate)
 
 
 
@@ -106,8 +73,109 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
         // 위치소스 지정
         naverMap.locationSource = locationSource
 
+        val jsonString = assets.open("yongsanschool.json").reader().readText()
+        val jsonString2 = assets.open("gangjinschool.json").reader().readText()
+        val jsonString3 = assets.open("sungbokschool.json").reader().readText()
+        val jsonString4 = assets.open("subway.json").reader().readText()
 
-        getNoSmokeListAPI()
+        val jsonObject = JSONObject(jsonString)
+        val jsonObject2 = JSONObject(jsonString2)
+        val jsonObject3 = JSONObject(jsonString3)
+        val jsonObject4 = JSONObject(jsonString4)
+
+
+        val jsonArray = jsonObject.getJSONArray("data")
+        val jsonArray2 = jsonObject2.getJSONArray("data")
+        val jsonArray3 = jsonObject3.getJSONArray("data")
+        val jsonArray4 = jsonObject4.getJSONArray("data")
+
+
+        for (i in 0 until jsonArray.length()) {
+            val lat = jsonArray.getJSONObject(i).getString("위도")
+            val latnum: Double = lat.toDouble()
+
+            val lng = jsonArray.getJSONObject(i).getString("경도")
+            val lngnum: Double = lng.toDouble()
+
+
+            val mutableList = mutableListOf(latnum, lngnum)
+
+            for (yongsan in  mutableList) {
+                val circle = CircleOverlay()
+                circle.center = LatLng(latnum, lngnum)
+                circle.color = Color.RED
+                circle.radius = 50.0
+                circle.map = naverMap
+
+            }
+        }
+
+        for (i in 0 until jsonArray2.length()) {
+            val lat2 = jsonArray2.getJSONObject(i).getString("위도")
+            val latnum2: Double = lat2.toDouble()
+
+
+            val lng2 = jsonArray2.getJSONObject(i).getString("경도")
+            val lngnum2: Double = lng2.toDouble()
+
+
+            val mutableList = mutableListOf(latnum2, lngnum2)
+
+            for (yongsan in  mutableList) {
+                val circle = CircleOverlay()
+                circle.center = LatLng(latnum2, lngnum2)
+                circle.color = Color.RED
+                circle.radius = 50.0
+                circle.map = naverMap
+            }
+        }
+
+        for (i in 0 until jsonArray3.length()) {
+            val lat3 = jsonArray3.getJSONObject(i).getString("위도")
+            val latnum3: Double = lat3.toDouble()
+
+
+            val lng3 = jsonArray3.getJSONObject(i).getString("경도")
+            val lngnum3: Double = lng3.toDouble()
+
+
+            val mutableList = mutableListOf(latnum3, lngnum3)
+
+            for (yongsan in  mutableList) {
+                val circle = CircleOverlay()
+                circle.center = LatLng(latnum3, lngnum3)
+                circle.color = Color.RED
+                circle.radius = 50.0
+                circle.map = naverMap
+            }
+        }
+
+        for (i in 0 until jsonArray4.length()) {
+            val lat4 = jsonArray4.getJSONObject(i).getString("위도")
+            val latnum4: Double = lat4.toDouble()
+
+
+            val lng4 = jsonArray4.getJSONObject(i).getString("경도")
+            val lngnum4: Double = lng4.toDouble()
+
+
+            val mutableList = mutableListOf(latnum4, lngnum4)
+
+            for (yongsan in  mutableList) {
+                val circle = CircleOverlay()
+                circle.center = LatLng(latnum4, lngnum4)
+                circle.color = Color.GREEN
+                circle.radius = 100.0
+                circle.map = naverMap
+            }
+        }
+
+
+
+
+
+
+
 
     }
 

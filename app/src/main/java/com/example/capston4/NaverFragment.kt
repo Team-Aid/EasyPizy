@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.capston4.databinding.NaverFragmentBinding
 
@@ -35,10 +36,8 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
 
-   // private val recyclerView: RecyclerView by lazy {
-        //findViewById(R.id.recyclerView)
-   // }
-   // private val recycleAdapter = HouseListAdapter()
+
+
     private val viewPagerAdapter = HouseViewPagerAdapter()
 
 
@@ -49,14 +48,12 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
         binding = NaverFragmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
-
         binding.radioButton2.setOnClickListener {
             val intent = Intent(this, NaverFragment2::class.java)
             startActivity(intent)
 
         }
+
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
             ?: MapFragment.newInstance().also {
@@ -88,6 +85,7 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
 
 
     private fun getSmokeListAPI() {
+
         val retrofit = Retrofit.Builder()
             .baseUrl("https://run.mocky.io")
             .addConverterFactory(GsonConverterFactory.create())
