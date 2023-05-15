@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
 import com.example.capston4.MyApp.Companion.applicationContext
+import org.w3c.dom.Text
 
 class HouseViewPagerAdapter: ListAdapter<SmokeArea, HouseViewPagerAdapter.ItemViewHolder>(differ) {
     val acontext:Context = applicationContext()
@@ -19,12 +20,18 @@ class HouseViewPagerAdapter: ListAdapter<SmokeArea, HouseViewPagerAdapter.ItemVi
     inner class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(smokeModel: SmokeArea) {
             val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
-            val priceTextView = view.findViewById<TextView>(R.id.priceTextView)
+            val category = view.findViewById<TextView>(R.id.categoty)
+            val location = view.findViewById<TextView>(R.id.loaction)
+            val inout = view.findViewById<TextView>(R.id.inout)
+            val cityname = view.findViewById<TextView>(R.id.cityname)
             val cardView = view.findViewById<CardView>(R.id.cardView)
-            titleTextView.text = smokeModel.areaName
-            priceTextView.text = smokeModel.category
+            titleTextView.text
+            location.text = smokeModel.areaName
+            category.text = smokeModel.category
+            cityname.text = smokeModel.b
+            inout.text = smokeModel.inout
 
-            cardView.setOnClickListener {
+           /* cardView.setOnClickListener {
                 View ->
                 val intent = Intent(acontext, InfomationActivity::class.java)
                 intent.putExtra("data", smokeModel)
@@ -35,7 +42,7 @@ class HouseViewPagerAdapter: ListAdapter<SmokeArea, HouseViewPagerAdapter.ItemVi
 
 
 
-            }
+            }*/
 
 
         }
