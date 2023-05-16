@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
-        android:name=".SmokePlaceApplication"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,7 +20,7 @@
         <activity android:name="com.example.easypizy.presentation.CalendarActivity" />
 
         <service
-            android:name=".MainActivity"
+            android:name=".presentation.NaverFragment"
             android:foregroundServiceType="location" />
 
         <activity
@@ -30,6 +34,31 @@
         </activity>
         <activity android:name="com.example.easypizy.presentation.PlaceActivity" />
         <activity android:name="com.example.easypizy.presentation.RecordActivity" />
+
+        <activity
+            android:name="com.example.easypizy.presentation.InfomationActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.easypizy.presentation.NaverFragment"/>
+
+        <activity
+            android:name="com.example.easypizy.presentation.NaverFragment"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.example.easypizy.presentation.NaverFragment2"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

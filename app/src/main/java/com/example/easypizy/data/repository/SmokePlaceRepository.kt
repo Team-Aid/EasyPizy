@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import com.example.easypizy.data.data_source.local.dao.SmokePlaceDao
 import com.example.easypizy.data.data_source.local.entity.SmokePlaceEntity
-import com.example.easypizy.data.data_source.remote.SmokeApi
+import com.example.easypizy.data.data_source.remote.GwangJinSmokeApi
 import com.example.easypizy.data.data_source.remote.SmokeClient
 import com.example.easypizy.data.data_source.remote.dto.smoke_place.GwangJinDtoList
 import com.example.easypizy.data.mapper.toEntity
@@ -27,7 +27,7 @@ class SmokePlaceRepository(private val smokePlaceDao: SmokePlaceDao) {
 
         val dtos: ArrayList<SmokePlaceEntity> = ArrayList()
         val retrofit = SmokeClient.getInstance()
-        val service = retrofit.create(SmokeApi::class.java)
+        val service = retrofit.create(GwangJinSmokeApi::class.java)
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
             service.getAllSmokePlaces()
                 .enqueue(object : Callback<GwangJinDtoList> {

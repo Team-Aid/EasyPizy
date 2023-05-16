@@ -1,291 +1,181 @@
 package com.example.easypizy.presentation
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.PermissionChecker
-import com.example.easypizy.databinding.ActivityMainBinding
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.widget.ViewPager2
+import com.example.easypizy.data.data_source.local.entity.SmokeArea
+import com.example.easypizy.data.data_source.remote.SmokeApi
+import com.example.easypizy.data.data_source.remote.dto.smoke_place.SmokeDto
+import com.example.easypizy.databinding.NaverFragmentBinding
+
 
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
-import org.json.JSONObject
 
 import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
 
-
-class NaverFragment : AppCompatActivity(), /*OnMapReadyCallback*/ LocationListener {
-
+class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickListener {
+    private lateinit var binding: NaverFragmentBinding
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
-    private var map: NaverMap? = null
-    private var locationManager: LocationManager? = null
-
-    //viewBinding 사용!
-    private var mBinding: ActivityMainBinding? = null
-    private val binding get() = mBinding!!
 
 
-    companion object {
-        private const val PERMISSION_REQUEST_CODE = 100
-        private val PERMISSIONS = arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-    }
+
+    private val viewPagerAdapter = HouseViewPagerAdapter()
 
 
-    //권한 가져오기
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-
         super.onCreate(savedInstanceState)
-        //TODO
-//        setContentView(R.layout.naver_fragment)
-//
-//        val fm = supportFragmentManager
-//        val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
-//            ?: MapFragment.newInstance().also {
-//                fm.beginTransaction().add(R.id.map, it).commit()
-//            }
-//        mapFragment.getMapAsync { naverMap ->
-//            map = naverMap
-//        }
+        binding = NaverFragmentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
+        binding.radioButton2.setOnClickListener {
+            val intent = Intent(this, NaverFragment2::class.java)
+            startActivity(intent)
 
-        locationSource = FusedLocationSource(this, PERMISSION_REQUEST_CODE)
+        }
+
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(com.example.easypizy.R.id.map) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(com.example.easypizy.R.id.map, it).commit()
+            }
+
+        mapFragment.getMapAsync(this)
+
+        binding.houseViewPager.adapter = viewPagerAdapter
+        // recyclerView.adapter = recycleAdapter
+        // recyclerView.layoutManager = LinearLayoutManager(this)
+
+        binding.houseViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                val selectedHouseModel = viewPagerAdapter.currentList[position]
+                val cameraUpdate = CameraUpdate.scrollTo(LatLng(selectedHouseModel.longitude, selectedHouseModel.latitude))
+                    .animate(CameraAnimation.Easing)
+                naverMap.moveCamera(cameraUpdate)
+
+            }
+        })
+
+    }
+
+
+
+
+
+    private fun getSmokeListAPI() {
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://run.mocky.io")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        retrofit.create(SmokeApi::class.java).also {
+            it.getAllSmoke()
+                .enqueue(object : Callback<SmokeDto>{
+                    override fun onResponse(
+                        call: Call<SmokeDto>,
+                        response: Response<SmokeDto>
+                    ) {
+                        if(!response.isSuccessful) {
+                            return
+                        }
+                        response.body()?.let { dto ->
+                            updateMarker(dto.data)
+                            viewPagerAdapter.submitList(dto.data)
+                            // recycleAdapter.submitList(dto.data)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SmokeDto>, t: Throwable) {
+
+                    }
+                })
+        }
+    }
+
+    private fun updateMarker(smokes: List<SmokeArea>) {
+        smokes.forEach {
+                smoke -> val marker = Marker()
+            marker.position = LatLng(smoke.longitude, smoke.latitude)
+            marker.map = naverMap
+            marker.tag = smoke.areaName
+            marker.onClickListener = this
+
+        }
+    }
+
+    override fun onClick(overlay: Overlay): Boolean {
+        val selectedModel = viewPagerAdapter.currentList.firstOrNull {
+            it.areaName == overlay.tag
+        }
+        selectedModel?.let {
+            val position = viewPagerAdapter.currentList.indexOf(it)
+            binding.houseViewPager.currentItem = position
+        }
+        return true
+
+
+    }
+    override fun onMapReady(map: NaverMap) {
+        naverMap = map
+
+        naverMap.maxZoom = 18.0
+        naverMap.minZoom = 10.0
+
+
+        // 지도 초기 위치
+        //val cameraUpdate = CameraUpdate.scrollTo(LatLng(37.497885,127.02751))
+        // naverMap.moveCamera(cameraUpdate)
+
+        // 현재 위치를 찾는 버튼 활성화
+        val uiSetting = naverMap.uiSettings
+        uiSetting.isLocationButtonEnabled = false
+
+
+        binding.currentLocationButton.map = naverMap
+
+        // 위치를 반환하는 FusedLocationSource 생성
+        locationSource = FusedLocationSource(this@NaverFragment, LOCATION_PERMISSION_REQUEST_CODE)
+        // 위치소스 지정
+        naverMap.locationSource = locationSource
+        getSmokeListAPI()
 
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>,
+        permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (hasPermission()) {
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    return
-                }
-                //TODO
-//                locationManager?.requestLocationUpdates(
-//                    LocationManager.GPS_PROVIDER,
-//                    1000,
-//                    10f,
-//                    this
-//                )
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // requestCode 확인
+        if(requestCode != LOCATION_PERMISSION_REQUEST_CODE)
+            return
+
+        // 권한 팝업을 쉽게 구현하기 위해서 google 에서 제공하는 라이브러리를 사용
+        if(locationSource.onRequestPermissionsResult(requestCode,permissions,grantResults)){
+            if(!locationSource.isActivated){
+                naverMap.locationTrackingMode = LocationTrackingMode.None
             }
             return
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        if (hasPermission()) {
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-
-                return
-            }
-            //TODO
-            //locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10f, this)
-        } else {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE)
-        }
 
     }
-    /* override fun onMapReady(p0: NaverMap) {
 
-     } */
-
-    override fun onStop() {
-        super.onStop()
-        locationManager?.removeUpdates(this)
+    companion object{
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 10000
     }
-
-    override fun onLocationChanged(location: Location) {
-        // Condition 'location == null' is always 'false'
-//        if (location == null) {
-//            return
-//        }
-        map?.let {
-
-            val coord = LatLng(location)
-
-            val locationOverlay = it.locationOverlay
-            locationOverlay.isVisible = true
-            locationOverlay.position = coord
-            locationOverlay.bearing = location.bearing
-
-            it.moveCamera(CameraUpdate.scrollTo(coord))
-
-            map?.locationSource = locationSource
-            map?.locationTrackingMode = LocationTrackingMode.Follow
-
-            val uiSettings = map?.uiSettings
-            uiSettings?.isLocationButtonEnabled = true
-            uiSettings?.isCompassEnabled = true
-            uiSettings?.isRotateGesturesEnabled = true
-
-            val jsonString = assets.open("yongsan.json").reader().readText() //용산구 흡연구역 json파일
-            val jsonString2 = assets.open("sungbok.json").reader().readText() //성북구 흡연구역 json파일
-
-            val jsonObject = JSONObject(jsonString)
-            val jsonObject2 = JSONObject(jsonString2)
-
-
-            val jsonArray = jsonObject.getJSONArray("data")
-            val jsonArray2 = jsonObject2.getJSONArray("data")
-
-            for (i in 0 until jsonArray2.length()) {
-                val lng2 = jsonArray2.getJSONObject(i).getString("경도")
-                val lngnum2: Double = lng2.toDouble()
-                Log.i("경도 ", lng2)
-
-                val location2 = jsonArray2.getJSONObject(i).getString("서울특별시 성북구 설치 위치")
-                Log.i("위치", location2)
-
-                val inout2 = jsonArray2.getJSONObject(i).getString("시설형태")
-                Log.i("시설형태", inout2)
-
-                val lat2 = jsonArray2.getJSONObject(i).getString("위도")
-                val latnum2: Double = lat2.toDouble()
-                Log.i("위도", lat2)
-
-
-                val mutableList = mutableListOf(latnum2, lngnum2)
-                Log.i("확인", mutableList.toString())
-
-                for (sungbok in mutableList) {
-                    val latlng = LatLng(latnum2, lngnum2)
-                    val marker = Marker()
-                    marker.position = latlng
-                    marker.map = map
-                }
-
-
-            }
-
-
-            for (i in 0 until jsonArray.length()) {
-                val lng = jsonArray.getJSONObject(i).getString("경도")
-                val lngnum: Double = lng.toDouble()
-                Log.i("경도 ", lng)
-
-
-                val locationInItem = jsonArray.getJSONObject(i).getString("서울특별시 용산구 설치 위치")
-                Log.i("위치", locationInItem)
-
-                val inout = jsonArray.getJSONObject(i).getString("시설형태")
-                Log.i("시설형태", inout)
-
-                val lat = jsonArray.getJSONObject(i).getString("위도")
-                val latnum: Double = lat.toDouble()
-                Log.i("위도", lat)
-
-
-                val mutableList = mutableListOf(latnum, lngnum)
-                Log.i("확인", mutableList.toString())
-
-                for (yongsan in mutableList) {
-                    val latlng = LatLng(latnum, lngnum)
-                    val marker = Marker()
-                    marker.position = latlng
-                    marker.map = map
-
-                    /* marker.icon = OverlayImage.fromResource(R.drawable.baseline_smoking_rooms_24) */
-
-                }
-
-
-            }
-
-        }
-    }
-
-    /*  fun showLocation() {
-          val name = mutableListOf<YongsanDtoItem>()
-          for (yongsan in name) {
-              val latLng = LatLng(yongsan.lat, yongsan.lng)
-              val marker = Marker()
-              marker.position = latLng
-              marker.map = map
-          }
-
-      }
-
-       fun locationService() {
-           val retrofit = SmokeClient.getInstance()
-
-           val service = retrofit.create(SmokeApi::class.java)
-
-
-           service.getAllSmoke()
-               .enqueue(object: Callback<YongsanDtoItem>{
-                   override fun onResponse(
-                       call: Call<YongsanDtoItem>,
-                       response: Response<YongsanDtoItem>
-                   ) {
-                       Log.d("성공", response.body().toString())
-                   }
-
-                   override fun onFailure(call: Call<YongsanDtoItem>, t: Throwable) {
-                       Log.d("SmokeClient", "에러: " + t.message.toString())
-                   }
-               })
-
-       }*/
-
-
-    override fun onStatusChanged(
-        provider: String, status: Int,
-        extras: Bundle
-    ) {
-    }
-
-    override fun onProviderEnabled(provider: String) {
-    }
-
-    override fun onProviderDisabled(provider: String) {
-    }
-
-    private fun hasPermission(): Boolean {
-        return PermissionChecker.checkSelfPermission(this, PERMISSIONS[0]) ==
-                PermissionChecker.PERMISSION_GRANTED &&
-                PermissionChecker.checkSelfPermission(this, PERMISSIONS[1]) ==
-                PermissionChecker.PERMISSION_GRANTED
-    }
-
 
 }
-
-
-
-
-
 
 
