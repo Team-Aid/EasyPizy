@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.easypizy.SmokePlaceApplication
+import com.example.easypizy.MyApp
 import com.example.easypizy.presentation.view_model.SmokeMemoViewModel
 import com.example.easypizy.presentation.view_model.SmokeMemoViewModelFactory
 import com.github.mikephil.charting.charts.BarChart
@@ -28,7 +28,7 @@ import kotlin.collections.ArrayList
 
 class RecordActivity : AppCompatActivity() {
     private val memoViewModel: SmokeMemoViewModel by viewModels {
-        SmokeMemoViewModelFactory((application as SmokePlaceApplication).smokeMemoRepository)
+        SmokeMemoViewModelFactory((application as MyApp).smokeMemoRepository)
     }
     private var barChart: BarChart? = null
 

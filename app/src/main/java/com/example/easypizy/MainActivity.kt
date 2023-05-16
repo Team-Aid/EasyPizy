@@ -1,12 +1,13 @@
 package com.example.easypizy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.easypizy.databinding.ActivityMainBinding
 import com.example.easypizy.presentation.Home
 import com.example.easypizy.presentation.Page
-import com.example.easypizy.presentation.Map
+import com.example.easypizy.presentation.NaverFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
             when(it.itemId){
                 R.id.home-> replaceFragment(Home())
-                R.id.map-> replaceFragment(Map())
+                R.id.map-> startActivity(Intent(this, NaverFragment::class.java))
                 R.id.page-> replaceFragment(Page())
 
                 else->{
