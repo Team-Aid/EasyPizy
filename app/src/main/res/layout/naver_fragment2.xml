@@ -4,27 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.easypizy.presentation.NaverFragment">
-
+    tools:context="com.example.easypizy.presentation.NaverFragment2">
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/framelayout"/>
+        android:id="@+id/framelayout2"/>
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/map2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.naver.maps.map.MapFragment"
         />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal"
-        android:id="@+id/houseViewPager"/>
 
     <com.naver.maps.map.widget.LocationButtonView
         android:layout_width="wrap_content"
@@ -38,10 +30,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal">
 
         <RadioButton
@@ -69,6 +63,8 @@
             android:paddingRight="20dp"
             android:text="금연구역" />
     </RadioGroup>
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
