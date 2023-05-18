@@ -3,12 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d2d2d9"
+    android:background="@android:color/transparent"
     tools:context=".presentation.Home">
 
     <!-- TODO: Update blank fragment layout -->
-
-
     <TextView
         android:id="@+id/menu"
         android:layout_width="wrap_content"
@@ -16,10 +14,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
-        android:text="Menu"
-        android:textSize="40dp"
-        android:textStyle="bold|italic"
-        android:textColor="#000000"/>
+        android:text="@string/easypizy"
+        android:textSize="30sp"
+        android:textStyle="bold|normal"
+        android:textColor="#FF1E90FF"/>
 
     <GridLayout
         android:layout_width="match_parent"
@@ -30,78 +28,46 @@
         android:orientation="horizontal"
         >
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_community"
-                android:text="community"
-                android:textSize="18dp"
-                android:layout_width="0dp"
-                android:layout_height="190dp"
-                android:layout_weight="1"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="40dp"
-                android:drawableTop="@drawable/drawable_resize"
-                android:textColor="@color/black"
-                android:background="@drawable/home_button"
-                />
+            android:layout_height="487dp"
+            android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_place"
-                android:text="place"
-                android:textSize="18dp"
                 android:layout_width="0dp"
-                android:layout_height="190dp"
+                android:layout_height="310dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="40dp"
+                android:background="@drawable/place_button"
                 android:drawableTop="@drawable/drawable_resize_place"
-                android:textColor="@color/black"
-                android:background="@drawable/home_button"
-                />
-        </LinearLayout>
+                android:drawablePadding="1dp"
+                android:paddingTop="80dp"
+                android:text="@string/place"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="21sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_star"
-                android:text="bookmark"
-                android:textSize="18dp"
-                android:layout_width="0dp"
-                android:layout_height="190dp"
-                android:layout_weight="1"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="60dp"
-                android:drawableTop="@drawable/drawable_resize_bookmark"
-                android:textColor="@color/black"
-                android:background="@drawable/home_button"
-                />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_record"
-                android:text="record"
-                android:textSize="18dp"
                 android:layout_width="0dp"
-                android:layout_height="190dp"
+                android:layout_height="310dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="60dp"
+                android:background="@drawable/record_button"
                 android:drawableTop="@drawable/drawable_resize_record"
-                android:textColor="@color/black"
-                android:background="@drawable/home_button"/>
+                android:drawablePadding="1dp"
+                android:paddingTop="80dp"
+                android:text="@string/record"
+                android:textColor="@color/white"
+                android:textSize="21sp" />
+
         </LinearLayout>
     </GridLayout>
-
-
-
-
 </RelativeLayout>
+
