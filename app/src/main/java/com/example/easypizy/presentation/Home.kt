@@ -42,7 +42,7 @@ class Home : Fragment() {
 
         // btn_place 버튼에 onClickListener 등록
         view.findViewById<Button>(R.id.btn_place).setOnClickListener {
-            val intent = Intent(activity, PlaceActivity::class.java)
+            val intent = Intent(activity, NaverFragment::class.java)
             startActivity(intent)
         }
 
