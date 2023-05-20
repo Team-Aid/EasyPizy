@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,6 +36,8 @@ class RecordActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+        window.statusBarColor = Color.WHITE
         setContentView(com.example.easypizy.R.layout.activity_record)
 
         val chart: ArrayList<BarEntry> = ArrayList()
@@ -55,7 +58,7 @@ class RecordActivity : AppCompatActivity() {
             BarDataSet(chart, "담배 핀 개수")
 
 
-        barDataSet.color = Color.argb(255, 122, 122, 122) // 색깔 설정
+        barDataSet.color = Color.argb(255, 25, 167, 206) // 색깔 설정
 
         barDataSet.valueTextSize=16f  // 글씨 크기
 
@@ -105,6 +108,9 @@ class RecordActivity : AppCompatActivity() {
             val yesterdayCiga = memoViewModel.getCigaretteCount(LocalDate.now().minusDays(1L))
             findViewById<TextView>(com.example.easypizy.R.id.today_num).text = todayCiga.toString()
             findViewById<TextView>(com.example.easypizy.R.id.yesterday_num).text = yesterdayCiga.toString()
+            findViewById<TextView>(com.example.easypizy.R.id.price).text = memoViewModel.getTotalSpendMoney().toString()
+            findViewById<TextView>(com.example.easypizy.R.id.tar).text = memoViewModel.getTotalTar().toString()
+            findViewById<TextView>(com.example.easypizy.R.id.period).text = memoViewModel.getTotalSmokePeriod().toString()
             val sign = when(todayCiga-yesterdayCiga){
                 in 1..Int.MAX_VALUE -> "+"
                 else -> ""
@@ -113,23 +119,17 @@ class RecordActivity : AppCompatActivity() {
 
             val cigaretteCounts2 = memoViewModel.getCigaretteCountPerDay(LocalDate.now())
             chart.clear()
-//            var biggest = 2
             for (i in 0..6){
                 chart.add(BarEntry(i.toFloat(), cigaretteCounts2[i].toFloat()))
-//                if(biggest < cigaretteCounts2[i]){
-//                    biggest = cigaretteCounts2[i]
-//                }
             }
 
-//            Log.d("asdd", biggest.toString())
-//            leftAxis.axisMaximum = biggest.toFloat()
             barChart!!.invalidate()
         }
 
-        findViewById<Button>(com.example.easypizy.R.id.plusCigaButton).setOnClickListener {
+        findViewById<FloatingActionButton>(com.example.easypizy.R.id.plusCigaButton).setOnClickListener {
             memoViewModel.plusCigarette(LocalDate.now(), 1)
         }
-        findViewById<Button>(com.example.easypizy.R.id.plusCigaChooseDayButton).setOnClickListener {
+        findViewById<FloatingActionButton>(com.example.easypizy.R.id.plusCigaChooseDayButton).setOnClickListener {
             Locale.setDefault(Locale.KOREA)
             val plusCigaDialog = PlusCigaDialog()
             plusCigaDialog.show(supportFragmentManager, "")
