@@ -3,6 +3,7 @@
     <item
         android:width="60dp"
         android:height="60dp"
-        android:top="2dp"
+        android:top="4dp"
+        android:start="4dp"
         android:drawable="@drawable/ic_baseline_add_24" />
 </layer-list>
