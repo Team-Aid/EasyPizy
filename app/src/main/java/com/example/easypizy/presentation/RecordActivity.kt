@@ -55,7 +55,7 @@ class RecordActivity : AppCompatActivity() {
             BarDataSet(chart, "담배 핀 개수")
 
 
-        barDataSet.color = Color.BLUE // 색깔 설정
+        barDataSet.color = Color.argb(255, 122, 122, 122) // 색깔 설정
 
         barDataSet.valueTextSize=16f  // 글씨 크기
 
@@ -133,6 +133,9 @@ class RecordActivity : AppCompatActivity() {
             Locale.setDefault(Locale.KOREA)
             val plusCigaDialog = PlusCigaDialog()
             plusCigaDialog.show(supportFragmentManager, "")
+        }
+        findViewById<Button>(com.example.easypizy.R.id.resetButton).setOnClickListener {
+            memoViewModel.resetMemos()
         }
     }
 }

@@ -125,11 +125,11 @@ class SmokeMemoViewModel(private val repository: SmokeMemoRepository) : ViewMode
     @RequiresApi(Build.VERSION_CODES.O)
     fun getTotalSmokePeriod(): Int {
         var firstDay = LocalDate.now()
-        if (smokeMemos.value.isNullOrEmpty()){
+        if (smokeMemos.value.isNullOrEmpty()) {
             return 0
         }
-        for(memo in smokeMemos.value!!) {
-            if(memo.date.isBefore(firstDay)){
+        for (memo in smokeMemos.value!!) {
+            if (memo.date.isBefore(firstDay)) {
                 firstDay = memo.date
             }
         }
@@ -140,11 +140,11 @@ class SmokeMemoViewModel(private val repository: SmokeMemoRepository) : ViewMode
     /**
      * 핀 모든 담배 개비 수 반환*/
     fun getTotalCigaretteCount(): Int {
-        if (smokeMemos.value.isNullOrEmpty()){
+        if (smokeMemos.value.isNullOrEmpty()) {
             return 0
         }
         var count = 0
-        for(memo in smokeMemos.value!!) {
+        for (memo in smokeMemos.value!!) {
             count += memo.cigaretteCount
         }
         return count
@@ -168,6 +168,25 @@ class SmokeMemoViewModel(private val repository: SmokeMemoRepository) : ViewMode
     fun deleteAllMemos() {
         CoroutineScope(Dispatchers.IO).launch {
             repository.deleteAllMemoEntities()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun resetMemos() {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.deleteAllMemoEntities()
+            val today = LocalDate.now()
+            val counts = arrayOf(3,7,6,10,4,6,2)
+            for (i in 0..6) {
+                val date = today.minusDays(i.toLong())
+                repository.insertSmokeMemoEntity(
+                    SmokeMemoEntity(
+                        id = date.toString(),
+                        date = date,
+                        cigaretteCount = counts[i]
+                    )
+                )
+            }
         }
     }
 }
