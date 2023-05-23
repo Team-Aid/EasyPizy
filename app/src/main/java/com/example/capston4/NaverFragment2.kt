@@ -1,16 +1,20 @@
 package com.example.capston4
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import com.example.capston4.databinding.NaverFragment2Binding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.CircleOverlay
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import org.json.JSONObject
 import retrofit2.Call
@@ -25,6 +29,8 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
     private lateinit var locationSource: FusedLocationSource
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = NaverFragment2Binding.inflate(layoutInflater)
@@ -36,6 +42,20 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             startActivity(intent)
 
         }
+
+        binding.floating.setOnClickListener {
+            val myLayout = layoutInflater.inflate(R.layout.custom_dialog, null)
+            val build = AlertDialog.Builder(this).apply {
+                setView(myLayout)
+
+            }
+            val dialog = build.create()
+            dialog.show()
+
+
+
+        }
+
 
 
 
@@ -73,9 +93,14 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
         // 위치소스 지정
         naverMap.locationSource = locationSource
 
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.baseline_block_24)
+        val overlayImage = OverlayImage.fromBitmap(bitmap)
+
+
+
         val jsonString = assets.open("yongsanschool.json").reader().readText()
         val jsonString2 = assets.open("gangjinschool.json").reader().readText()
-        val jsonString3 = assets.open("sungbokschool.json").reader().readText()
+        val jsonString3 = assets.open("sungbokschool1.json").reader().readText()
         val jsonString4 = assets.open("subway.json").reader().readText()
 
         val jsonObject = JSONObject(jsonString)
@@ -103,8 +128,8 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             for (yongsan in  mutableList) {
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum, lngnum)
-                circle.color = Color.RED
-                circle.radius = 50.0
+                circle.color = 0x4D0055FF.toInt()
+                circle.radius = 125.0
                 circle.map = naverMap
 
             }
@@ -122,11 +147,13 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             val mutableList = mutableListOf(latnum2, lngnum2)
 
             for (yongsan in  mutableList) {
+                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.baseline_block_24)
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum2, lngnum2)
-                circle.color = Color.RED
-                circle.radius = 50.0
+                circle.color = 0x4D0055FF.toInt()
+                circle.radius = 125.0
                 circle.map = naverMap
+
             }
         }
 
@@ -144,8 +171,8 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             for (yongsan in  mutableList) {
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum3, lngnum3)
-                circle.color = Color.RED
-                circle.radius = 50.0
+                circle.color = 0x4D0055FF.toInt()
+                circle.radius = 125.0
                 circle.map = naverMap
             }
         }
@@ -164,7 +191,7 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             for (yongsan in  mutableList) {
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum4, lngnum4)
-                circle.color = Color.GREEN
+                circle.color = 0x4D00FF80.toInt()
                 circle.radius = 100.0
                 circle.map = naverMap
             }

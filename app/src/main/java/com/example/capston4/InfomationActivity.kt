@@ -19,16 +19,6 @@ class InfomationActivity : AppCompatActivity() {
         binding = ActivityInfomationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val text = findViewById<TextView>(R.id.titleTextView1)
-        val text2 = findViewById<TextView>(R.id.locaTextView)
-
-
-
-        supportActionBar?.title = "흡연구역 정보"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
-
     }
 
 
