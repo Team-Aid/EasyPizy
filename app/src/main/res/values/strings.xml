@@ -5,4 +5,16 @@
     <string name="easypizy">Easypizy</string>
     <string name="place">place</string>
     <string name="record">record</string>
+    <string name="app_information">App information</string>
+    <string name="line_description1">line_description</string>
+    <string name="pageplace">Place</string>
+    <string name="pagetext1">금연구역</string>
+    <string name="pagetext2">금연구역으로 지정된 버스역, 지하철역, 어린이보호구역, 학교, 및 사람들이 많이 다니는 공원을 지정하여 표시</string>
+    <string name="pagetext3">흡연구역</string>
+    <string name="pagetext4">국가의 보건 정책과에서 운영하는 공공데이터포털의 흡연구역 정보에 대한 데이터로, 금연구역 내 흡연시설이 있는 곳의 상호명, 주소, 흡연실 유형 등의 항목을 제공</string>
+    <string name="line_description">line_description</string>
+    <string name="pagerecord">Record</string>
+    <string name="pagetext5">흡연기록</string>
+    <string name="pagetext6">흡연기록을 작성하며 자신의 흡연정보를 기록한다 또한 돈을 절약 할 수 있게 동기부여</string>
+    <string name="line_description3">line_description</string>
 </resources>
