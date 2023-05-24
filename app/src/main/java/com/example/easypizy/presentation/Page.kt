@@ -1,10 +1,15 @@
 package com.example.easypizy.presentation
 
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
 import com.example.easypizy.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,7 +26,8 @@ class Page : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private lateinit var listView: ListView
+    private val items = arrayOf("앱 목적 | 취지", "주의사항")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +41,32 @@ class Page : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_page, container, false)
+
+        listView = view.findViewById(R.id.list)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
+        listView.adapter = adapter
+
+        listView.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                when (position) {
+                    0 -> showDialog("앱 목적 & 취지", "앱 목적과 취지에 대한 내용입니다.")
+                    1 -> showDialog("주의사항", "주의해야 할 사항에 대한 내용입니다.")
+                }
+            }
+
+        return view
+    }
+
+    private fun showDialog(title: String, message: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("확인") { dialogInterface: DialogInterface, _: Int ->
+                dialogInterface.dismiss()
+            }
+            .create()
+            .show()
     }
 
     companion object {
