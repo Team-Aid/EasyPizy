@@ -3,25 +3,15 @@ package com.example.capston4
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
-import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import com.example.capston4.databinding.NaverFragment2Binding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.CircleOverlay
-import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
     private lateinit var binding: NaverFragment2Binding
@@ -93,26 +83,29 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
         // 위치소스 지정
         naverMap.locationSource = locationSource
 
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.baseline_block_24)
-        val overlayImage = OverlayImage.fromBitmap(bitmap)
+
 
 
 
         val jsonString = assets.open("yongsanschool.json").reader().readText()
         val jsonString2 = assets.open("gangjinschool.json").reader().readText()
-        val jsonString3 = assets.open("sungbokschool1.json").reader().readText()
+        val jsonString3 = assets.open("sungbokschool.json").reader().readText()
         val jsonString4 = assets.open("subway.json").reader().readText()
+        val jsonString5 = assets.open("busstation.json").reader().readText()
+
 
         val jsonObject = JSONObject(jsonString)
         val jsonObject2 = JSONObject(jsonString2)
         val jsonObject3 = JSONObject(jsonString3)
         val jsonObject4 = JSONObject(jsonString4)
+        val jsonObject5 = JSONObject(jsonString5)
 
 
         val jsonArray = jsonObject.getJSONArray("data")
         val jsonArray2 = jsonObject2.getJSONArray("data")
         val jsonArray3 = jsonObject3.getJSONArray("data")
         val jsonArray4 = jsonObject4.getJSONArray("data")
+        val jsonArray5 = jsonObject5.getJSONArray("data")
 
 
         for (i in 0 until jsonArray.length()) {
@@ -147,7 +140,6 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             val mutableList = mutableListOf(latnum2, lngnum2)
 
             for (yongsan in  mutableList) {
-                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.baseline_block_24)
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum2, lngnum2)
                 circle.color = 0x4D0055FF.toInt()
@@ -193,6 +185,26 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
                 circle.center = LatLng(latnum4, lngnum4)
                 circle.color = 0x4D00FF80.toInt()
                 circle.radius = 100.0
+                circle.map = naverMap
+            }
+        }
+
+        for (i in 0 until jsonArray5.length()) {
+            val lat5 = jsonArray5.getJSONObject(i).getString("위도")
+            val latnum5: Double = lat5.toDouble()
+
+
+            val lng5 = jsonArray5.getJSONObject(i).getString("경도")
+            val lngnum5: Double = lng5.toDouble()
+
+
+            val mutableList = mutableListOf(latnum5, lngnum5)
+
+            for (yongsan in  mutableList) {
+                val circle = CircleOverlay()
+                circle.center = LatLng(latnum5, lngnum5)
+                circle.color = 0x4DD5FF00.toInt()
+                circle.radius = 10.0
                 circle.map = naverMap
             }
         }
