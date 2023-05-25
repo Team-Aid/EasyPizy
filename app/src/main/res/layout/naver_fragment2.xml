@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.easypizy.presentation.NaverFragment2">
+    tools:context=".presentation.NaverFragment2">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -24,6 +24,17 @@
         android:id="@+id/currentLocationButton"
         android:layout_gravity="top|start"
         android:layout_margin="12dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_margin="12dp"
+        android:src="@drawable/help_48px"
+        app:backgroundTint="#ffffff"
+        app:elevation="20dp"
+        app:maxImageSize="48dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"

@@ -1,7 +1,7 @@
 package com.example.easypizy.presentation
 
+import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.example.easypizy.databinding.NaverFragment2Binding
@@ -17,17 +17,38 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
     private lateinit var locationSource: FusedLocationSource
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = NaverFragment2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.radioButton2.isChecked = true
+
         binding.radioButton.setOnClickListener {
 
             val intent = Intent(this, NaverFragment::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            overridePendingTransition(0, 0)
+            finish()
 
         }
+
+        binding.floating.setOnClickListener {
+            val myLayout = layoutInflater.inflate(com.example.easypizy.R.layout.custom_dialog, null)
+            val build = AlertDialog.Builder(this).apply {
+                setView(myLayout)
+
+            }
+            val dialog = build.create()
+            dialog.show()
+
+
+
+        }
+
 
 
 
@@ -65,21 +86,29 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
         // 위치소스 지정
         naverMap.locationSource = locationSource
 
+
+
+
+
         val jsonString = assets.open("yongsanschool.json").reader().readText()
         val jsonString2 = assets.open("gangjinschool.json").reader().readText()
         val jsonString3 = assets.open("sungbokschool.json").reader().readText()
         val jsonString4 = assets.open("subway.json").reader().readText()
+        val jsonString5 = assets.open("busstation.json").reader().readText()
+
 
         val jsonObject = JSONObject(jsonString)
         val jsonObject2 = JSONObject(jsonString2)
         val jsonObject3 = JSONObject(jsonString3)
         val jsonObject4 = JSONObject(jsonString4)
+        val jsonObject5 = JSONObject(jsonString5)
 
 
         val jsonArray = jsonObject.getJSONArray("data")
         val jsonArray2 = jsonObject2.getJSONArray("data")
         val jsonArray3 = jsonObject3.getJSONArray("data")
         val jsonArray4 = jsonObject4.getJSONArray("data")
+        val jsonArray5 = jsonObject5.getJSONArray("data")
 
 
         for (i in 0 until jsonArray.length()) {
@@ -95,8 +124,8 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             for (yongsan in  mutableList) {
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum, lngnum)
-                circle.color = Color.RED
-                circle.radius = 50.0
+                circle.color = 0x4D0055FF.toInt()
+                circle.radius = 125.0
                 circle.map = naverMap
 
             }
@@ -116,9 +145,10 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             for (yongsan in  mutableList) {
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum2, lngnum2)
-                circle.color = Color.RED
-                circle.radius = 50.0
+                circle.color = 0x4D0055FF.toInt()
+                circle.radius = 125.0
                 circle.map = naverMap
+
             }
         }
 
@@ -136,8 +166,8 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             for (yongsan in  mutableList) {
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum3, lngnum3)
-                circle.color = Color.RED
-                circle.radius = 50.0
+                circle.color = 0x4D0055FF.toInt()
+                circle.radius = 125.0
                 circle.map = naverMap
             }
         }
@@ -156,8 +186,28 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
             for (yongsan in  mutableList) {
                 val circle = CircleOverlay()
                 circle.center = LatLng(latnum4, lngnum4)
-                circle.color = Color.GREEN
+                circle.color = 0x4D00FF80.toInt()
                 circle.radius = 100.0
+                circle.map = naverMap
+            }
+        }
+
+        for (i in 0 until jsonArray5.length()) {
+            val lat5 = jsonArray5.getJSONObject(i).getString("위도")
+            val latnum5: Double = lat5.toDouble()
+
+
+            val lng5 = jsonArray5.getJSONObject(i).getString("경도")
+            val lngnum5: Double = lng5.toDouble()
+
+
+            val mutableList = mutableListOf(latnum5, lngnum5)
+
+            for (yongsan in  mutableList) {
+                val circle = CircleOverlay()
+                circle.center = LatLng(latnum5, lngnum5)
+                circle.color = 0x4DD5FF00.toInt()
+                circle.radius = 10.0
                 circle.map = naverMap
             }
         }
@@ -197,5 +247,3 @@ class NaverFragment2 : FragmentActivity(), OnMapReadyCallback {
     }
 
 }
-
-
