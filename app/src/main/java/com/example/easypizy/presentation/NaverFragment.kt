@@ -15,6 +15,7 @@ import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
+import com.naver.maps.map.util.MarkerIcons
 
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -38,9 +39,12 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
 
         binding.radioButton2.setOnClickListener {
             val intent = Intent(this, NaverFragment2::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
-
+            overridePendingTransition(0, 0)
+            finish()
         }
+
 
         val fm = supportFragmentManager
         val mapFragment = fm.findFragmentById(com.example.easypizy.R.id.map) as MapFragment?
@@ -61,15 +65,14 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
                 val selectedHouseModel = viewPagerAdapter.currentList[position]
                 val cameraUpdate = CameraUpdate.scrollTo(LatLng(selectedHouseModel.longitude, selectedHouseModel.latitude))
                     .animate(CameraAnimation.Easing)
+
                 naverMap.moveCamera(cameraUpdate)
+
 
             }
         })
 
     }
-
-
-
 
 
     private fun getSmokeListAPI() {
@@ -108,8 +111,11 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
                 smoke -> val marker = Marker()
             marker.position = LatLng(smoke.longitude, smoke.latitude)
             marker.map = naverMap
+            marker.icon = MarkerIcons.RED
             marker.tag = smoke.areaName
             marker.onClickListener = this
+
+
 
         }
     }
@@ -132,14 +138,15 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
         naverMap.maxZoom = 18.0
         naverMap.minZoom = 10.0
 
-
         // 지도 초기 위치
         //val cameraUpdate = CameraUpdate.scrollTo(LatLng(37.497885,127.02751))
         // naverMap.moveCamera(cameraUpdate)
 
-        // 현재 위치를 찾는 버튼 활성화
+
         val uiSetting = naverMap.uiSettings
         uiSetting.isLocationButtonEnabled = false
+
+
 
 
         binding.currentLocationButton.map = naverMap
@@ -149,6 +156,7 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
         // 위치소스 지정
         naverMap.locationSource = locationSource
         getSmokeListAPI()
+
 
     }
 
@@ -177,5 +185,3 @@ class NaverFragment : FragmentActivity(), OnMapReadyCallback, Overlay.OnClickLis
     }
 
 }
-
-

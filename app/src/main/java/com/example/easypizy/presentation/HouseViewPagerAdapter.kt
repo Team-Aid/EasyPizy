@@ -18,13 +18,11 @@ class HouseViewPagerAdapter: ListAdapter<SmokeArea, HouseViewPagerAdapter.ItemVi
 
     inner class ItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(smokeModel: SmokeArea) {
-            val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
             val category = view.findViewById<TextView>(R.id.categoty)
             val location = view.findViewById<TextView>(R.id.loaction)
             val inout = view.findViewById<TextView>(R.id.inout)
             val cityname = view.findViewById<TextView>(R.id.cityname)
             val cardView = view.findViewById<CardView>(R.id.cardView)
-            titleTextView.text
             location.text = smokeModel.areaName
             category.text = smokeModel.category
             cityname.text = smokeModel.b
