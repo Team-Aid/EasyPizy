@@ -7,7 +7,8 @@
     <item android:title="Map"
         android:id="@+id/map"
         android:icon="@drawable/ic_baseline_map_24"/>
-    <item android:title="Page"
+    <item
         android:id="@+id/page"
-        android:icon="@drawable/ic_baseline_find_in_page_24"/>
+        android:icon="@drawable/help_48px"
+        android:title="Info" />
 </menu>

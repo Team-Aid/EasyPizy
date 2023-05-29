@@ -53,6 +53,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/pagetext1"
         android:textColor="#F04037"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pagePlace" />
@@ -65,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
         android:text="@string/pagetext2"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pageText1" />
@@ -77,6 +78,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/pagetext3"
         android:textColor="#528AF2"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pageText2" />
@@ -89,7 +91,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
         android:text="@string/pagetext4"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pageText3" />
@@ -128,6 +130,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/pagetext5"
         android:textColor="#B098C1"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pageRecord" />
@@ -140,7 +143,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
         android:text="@string/pagetext6"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pageText5" />
