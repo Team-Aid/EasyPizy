@@ -77,7 +77,7 @@ class RecordActivity : AppCompatActivity() {
         leftAxis.setDrawLabels(false)
         leftAxis.setDrawGridLines(false)
         leftAxis.axisMinimum = 0f
-        leftAxis.axisMaximum = 25f
+        leftAxis.axisMaximum = 35f
 
         val rightAxis: YAxis = barChart!!.axisRight
         // 우측 선 설정 (default = true)
@@ -111,6 +111,8 @@ class RecordActivity : AppCompatActivity() {
             findViewById<TextView>(com.example.easypizy.R.id.price).text = memoViewModel.getTotalSpendMoney().toString()
             findViewById<TextView>(com.example.easypizy.R.id.tar).text = memoViewModel.getTotalTar().toString()
             findViewById<TextView>(com.example.easypizy.R.id.period).text = memoViewModel.getTotalSmokePeriod().toString()
+            findViewById<TextView>(com.example.easypizy.R.id.price_same).text = memoViewModel.getTotalSpendMoney().toString()
+            findViewById<TextView>(com.example.easypizy.R.id.chicken_num).text = ((memoViewModel.getTotalSpendMoney())/15000).toString()
             val sign = when(todayCiga-yesterdayCiga){
                 in 1..Int.MAX_VALUE -> "+"
                 else -> ""

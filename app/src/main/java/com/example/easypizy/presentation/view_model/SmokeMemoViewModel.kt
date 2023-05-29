@@ -46,6 +46,32 @@ class SmokeMemoViewModel(private val repository: SmokeMemoRepository) : ViewMode
     }
 
     /**
+     * 날짜 [date]의 담배 개비 수를 [count]로 수정
+     * @param date 담배 개비 수를 수정할 날짜
+     * @param count 수정할 담배의 개비 수*/
+    fun updateCigarette(date: LocalDate, count: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val memo = repository.getSmokeMemoEntity(date)
+            Log.d(
+                "SmokeMemoViewModel",
+                memo.toString()
+            )
+            if (memo == null) {
+                repository.insertSmokeMemoEntity(
+                    SmokeMemoEntity(
+                        id = date.toString(),
+                        date = date,
+                        cigaretteCount = count
+                    )
+                )
+            } else {
+                val newMemo = memo.copy(cigaretteCount = count)
+                repository.updateSmokeMemoEntity(newMemo)
+            }
+        }
+    }
+
+    /**
      * 날짜 [date]에 핀 담배 개비 수를 반환
      * @param date 몇 개비 폈는지 알고 싶은 날짜*/
     fun getCigaretteCount(date: LocalDate): Int {
@@ -176,7 +202,7 @@ class SmokeMemoViewModel(private val repository: SmokeMemoRepository) : ViewMode
         CoroutineScope(Dispatchers.IO).launch {
             repository.deleteAllMemoEntities()
             val today = LocalDate.now()
-            val counts = arrayOf(3,7,6,10,4,6,2)
+            val counts = arrayOf(13,17,16,10,14,16,12)
             for (i in 0..6) {
                 val date = today.minusDays(i.toLong())
                 repository.insertSmokeMemoEntity(

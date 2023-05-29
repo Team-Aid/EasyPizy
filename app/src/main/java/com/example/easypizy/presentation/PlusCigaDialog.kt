@@ -54,7 +54,7 @@ class PlusCigaDialog : DialogFragment() {
         confirmButton.setOnClickListener {
             val date: LocalDate = LocalDate.of(dateTimeSpinner.year, dateTimeSpinner.month+1, dateTimeSpinner.dayOfMonth)
             val count = editText.text.toString().toInt()
-            viewModel.plusCigarette(date, count)
+            viewModel.updateCigarette(date, count)
             this.dismiss()
         }
     }
