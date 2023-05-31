@@ -4,7 +4,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface SmokeApi {
-    @GET("/v3/19636cc1-f10d-45b6-8ea0-8a52a423d117")
+    @GET("/v3/7e2b79b9-f8bc-4543-af1a-60ae9c52a33a")
     fun getAllSmoke(): Call<SmokeDto>
 
 
