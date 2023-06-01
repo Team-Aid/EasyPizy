@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:paddingEnd="30dp"
         android:text="구역정보"
         android:textSize="30sp"
         android:textStyle="bold"

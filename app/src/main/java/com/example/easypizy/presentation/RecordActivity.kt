@@ -102,6 +102,7 @@ class RecordActivity : AppCompatActivity() {
             labels.add("${thatDay.month.value}/${thatDay.dayOfMonth}")
         }
         xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        xAxis.textSize = 11f
 
         memoViewModel.smokeMemos.observe(this){
             val todayCiga = memoViewModel.getCigaretteCount(LocalDate.now())
