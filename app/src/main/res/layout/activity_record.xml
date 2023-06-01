@@ -450,6 +450,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_marginBottom="15dp"
                         android:src="@drawable/baseline_electric_bolt_24" />
 
                     <TextView
@@ -511,12 +512,10 @@
                         android:orientation="horizontal">
 
 
-
-
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="0dp"
                             android:text=" 으로 맛있는 치킨 "
                             android:textColor="#000000"
@@ -532,6 +531,7 @@
                             android:id="@+id/chicken_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="0dp"
                             android:text=" 6"
                             android:textColor="#1B58B4"
@@ -541,8 +541,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="0dp"
-                            android:text="개를 먹을"
+                            android:text="마리를 먹을"
                             android:textColor="#000000"
                             android:textSize="18dp"
                             android:textStyle="bold" />

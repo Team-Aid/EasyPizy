@@ -15,6 +15,6 @@
     <string name="line_description">line_description</string>
     <string name="pagerecord">Record</string>
     <string name="pagetext5">흡연기록</string>
-    <string name="pagetext6">흡연기록을 작성하며 자신의 흡연정보를 기록한다 또한 돈을 절약 할 수 있게 동기부여</string>
+    <string name="pagetext6">흡연기록을 작성하며 자신의 흡연정보를 기록한다. 또한 돈을 절약 할 수 있게 동기부여</string>
     <string name="line_description3">line_description</string>
 </resources>

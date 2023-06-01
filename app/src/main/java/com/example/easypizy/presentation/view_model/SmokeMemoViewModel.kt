@@ -160,7 +160,7 @@ class SmokeMemoViewModel(private val repository: SmokeMemoRepository) : ViewMode
             }
         }
         val difference = Duration.between(firstDay.atStartOfDay(), LocalDate.now().atStartOfDay())
-        return difference.toDays().toInt()
+        return (difference.toDays()+1).toInt()
     }
 
     /**

@@ -50,8 +50,9 @@ class Page : Fragment() {
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 when (position) {
-                    0 -> showDialog("앱 목적 & 취지", "앱 목적과 취지에 대한 내용입니다.")
-                    1 -> showDialog("주의사항", "주의해야 할 사항에 대한 내용입니다.")
+                    0 -> showDialog("앱 목적 & 취지", "지도를 통해 금연, 흡연구역을 확인할 수 있고, 메모 기능을 이용해 금연에 도움을 줄 수 있도록 " +
+                            "앱을 개발하였습니다.")
+                    1 -> showDialog("주의사항", "메모 페이지에서 Memo 제목 옆 흰색 사각형 모양을 누르게 되면 데이터가 리셋됩니다.")
                 }
             }
 
